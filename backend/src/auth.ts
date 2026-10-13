@@ -15,14 +15,18 @@ export function issueSessionCookie(res: Response, payload: SessionPayload) {
   res.cookie(SESSION_COOKIE, token, {
     httpOnly: true,
     secure: env.cookieSecure,
-    sameSite: "lax",
+    sameSite: env.cookieSecure ? "none" : "lax",
     maxAge: SESSION_TTL_SECONDS * 1000,
     path: "/",
   });
 }
 
 export function clearSessionCookie(res: Response) {
-  res.clearCookie(SESSION_COOKIE, { path: "/" });
+  res.clearCookie(SESSION_COOKIE, {
+    path: "/",
+    secure: env.cookieSecure,
+    sameSite: env.cookieSecure ? "none" : "lax",
+  });
 }
 
 export interface AuthedRequest extends Request {
