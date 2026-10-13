@@ -34,8 +34,11 @@ npm install
 npm run migrate
 ```
 
-The migration creates two tables: `users` and `accounts` (see
-`backend/migrations/001_init.sql`).
+The migration creates an `otp_desk` schema containing two tables — `users`
+and `accounts` (see `backend/migrations/001_init.sql`). Using a dedicated
+schema keeps this app's tables isolated if you point it at a Postgres
+instance (e.g. a Supabase project) that's already shared with other
+projects.
 
 ## 2. Backend environment variables (`backend/.env`)
 
